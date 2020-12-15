@@ -31,7 +31,9 @@ const styles = StyleSheet.create({
     },
     inputStyle: {
         borderColor: 'black',
-        fontSize: 18
+        fontSize: 18,
+        // borderWidth:5,
+        flex:1
     },
     iconStyle: {
         fontSize: 35,
