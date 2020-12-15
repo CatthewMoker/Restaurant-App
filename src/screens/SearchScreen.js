@@ -9,14 +9,19 @@ import ResultsList from '../components/ResultsList';
 const SearchScreen = () => {
     const [term, setTerm] = useState('');
     const [searchApi, results, errorMessage] = useResults();
-    
 
     // Call searchAPI when component
     // is first rendered. BAD CODE!
     // searchApi('pasta')
-    useEffect(() => {
-        searchApi('pasta');
-    }, [])
+    // useEffect(() => {
+    //     searchApi('pasta');
+    // }, [])
+    const filterResultsByPrice = (price) => {
+        // === '$'|| '$$' || '$$$'
+        return results.filter(result => {
+            return result.price === price;
+        });
+    };
 
     return (
         <View>
@@ -27,9 +32,9 @@ const SearchScreen = () => {
             />
             {errorMessage ? <Text>{errorMessage}</Text> : null}
             <Text>We have found {results.length} results</Text>
-            <ResultsList title="Cost Effective" />
-            <ResultsList title="Bit Pricier" />
-            <ResultsList title="Big Spender" />
+            <ResultsList results={filterResultsByPrice('$')} title="Cost Effective" />
+            <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" />
+            <ResultsList results={filterResultsByPrice('$$$')} title="Big Spender" />
         </View>
     );
 };
