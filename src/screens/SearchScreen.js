@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import yelp from '../api/yelp';
 import SearchBar from '../components/SearchBar';
 import useResults from '../hooks/useResults';
@@ -13,9 +13,10 @@ const SearchScreen = () => {
     // Call searchAPI when component
     // is first rendered. BAD CODE!
     // searchApi('pasta')
-    // useEffect(() => {
-    //     searchApi('pasta');
-    // }, [])
+    useEffect(() => {
+        searchApi('pasta');
+    }, [])
+
     const filterResultsByPrice = (price) => {
         // === '$'|| '$$' || '$$$'
         return results.filter(result => {
@@ -24,7 +25,7 @@ const SearchScreen = () => {
     };
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <SearchBar 
             term={term} 
             onTermChange={setTerm} 
@@ -32,9 +33,11 @@ const SearchScreen = () => {
             />
             {errorMessage ? <Text>{errorMessage}</Text> : null}
             <Text>We have found {results.length} results</Text>
-            <ResultsList results={filterResultsByPrice('$')} title="Cost Effective" />
-            <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" />
-            <ResultsList results={filterResultsByPrice('$$$')} title="Big Spender" />
+            <ScrollView>
+                <ResultsList results={filterResultsByPrice('$')} title="Cost Effective" />
+                <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" />
+                <ResultsList results={filterResultsByPrice('$$$')} title="Big Spender" />
+            </ScrollView>
         </View>
     );
 };
