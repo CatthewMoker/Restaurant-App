@@ -1,8 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
+import Constants from "expo-constants";
 
 export default axios.create({
-    baseURL: 'https://api.yelp.com/v3/businesses',
-    headers: {
-        Authorization: `Bearer `
-    }
+  baseURL: Constants.manifest.baseUrl,
+  headers: {
+    Authorization: `Bearer ` + Constants.manifest.bearerToken,
+  },
 });
